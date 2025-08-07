@@ -1,0 +1,29 @@
+PidFileLocation: /tmp/wsSocket.pid
+proxyList:
+  - proxyEntry:
+      - wsHost:
+          host: 178.0.0.1
+          port: 10113
+          path: /
+      - targetHost:
+          host: 127.0.0.1
+          port: 10113
+          path: /
+  - proxyEntry:
+      - wsHost:
+          host: 127.0.0.1
+          port: 10113
+          path: /
+      - targetHost:
+          host: 127.0.0.1
+          port: 10113
+          path: /
+  - proxyEntry:
+      - wsHost:
+          host: 127.0.0.1
+          port: 10113
+          path: /
+      - targetHost:
+          host: 128.0.0.1
+          port: 10113
+          path: /
