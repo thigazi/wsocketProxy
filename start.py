@@ -14,29 +14,24 @@ class Apploader(object):
             self.__yaml_cfg = load(fcfg, Loader=FullLoader)
 
     def Task(self, task_action):
-        if task_action == 'start':
-            try:
-                with pidfile.PIDFile(self.__yaml_cfg['PidFileLocation']):
-                    print('Process started.')
-                    sleep(1000)
-
-            except pidfile.AlreadyRunningError:
-                print('Process is already running.')
-
-        elif task_action == 'stop':
-            with open(self.__yaml_cfg['PidFileLocation'],'r') as pid_file:
-                pid_process = Process(int(pid_file.read()))
-                pid_process.terminate()
+        action_methods = {'start': self.__startUp, 'stop': self.__shutDown}
+        action_methods[task_action]()
 
     def __startUp(self):
-        pass
+        try:
+            with pidfile.PIDFile(self.__yaml_cfg['PidFileLocation']):
+                print('Process started.')
+                sleep(1000)
+
+        except pidfile.AlreadyRunningError:
+            print('Process is already running.')
 
     def __shutDown(self):
-        pass
+        with open(self.__yaml_cfg['PidFileLocation'], 'r') as pid_file:
+            Process(int(pid_file.read())).terminate()
 
 
 if __name__ == '__main__':
-    print(argv)
     if len(argv) == 2:
         if argv[1] == 'start':
             Apploader().Task(task_action='start')
